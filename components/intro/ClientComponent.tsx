@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { mutateData } from '@/lib/actions/intro/mutateData';
 
 type Props = {
   children: React.ReactNode;
@@ -14,7 +15,9 @@ export default function ClientComponent({ children, content }: Props) {
     <div className="border-2 border-red-500 p-4">
       <button
         onClick={async () => {
-          alert('ServerComponent');
+          // api endpoint will be created
+          const data = await mutateData();
+          alert(data);
         }}
       >
         OnClick
