@@ -6,6 +6,7 @@ import LinkButton from '@/components/ui/LinkButton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
 import { updateContact } from '@/lib/actions/updateContact';
+import type { ContactSchemaErrorType } from '@/validations/contactSchema';
 import type { Contact } from '@prisma/client';
 
 type Props = {
@@ -16,7 +17,7 @@ export default function ContactForm({ contact }: Props) {
   const updateContactById = updateContact.bind(null, contact.id);
 
   const [, updateContactAction] = useActionState(updateContactById, {
-    errors: {},
+    errors: {} as ContactSchemaErrorType,
   });
 
   return (
