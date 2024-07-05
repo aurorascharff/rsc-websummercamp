@@ -1,23 +1,26 @@
-import React from 'react';
+'use client';
 
+import React, { useActionState } from 'react';
 import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
-
 import { updateContact } from '@/lib/actions/updateContact';
-import { getContact } from '@/lib/services/getContact';
+import type { Contact } from '@prisma/client';
 
 type Props = {
-  contactId: string;
+  contact: Contact;
 };
 
-export default async function ContactForm({ contactId }: Props) {
-  const contact = await getContact(contactId);
-  const updateContactById = updateContact.bind(null, contactId);
+export default function ContactForm({ contact }: Props) {
+  const updateContactById = updateContact.bind(null, contact.id);
+
+  const [, updateContactAction] = useActionState(updateContactById, {
+    errors: {},
+  });
 
   return (
-    <form action={updateContactById} className="flex max-w-[40rem] flex-col gap-4 @container">
+    <form action={updateContactAction} className="flex max-w-[40rem] flex-col gap-4 @container">
       <div className="grip-rows-5 grid grid-cols-1 gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
