@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ContactList from '@/components/ContactList';
 import Search from '@/components/Search';
 import Button from '@/components/ui/Button';
+import { getContacts } from '@/lib/services/getContacts';
 import Logo from '@/public/next-js.svg';
 import type { Metadata } from 'next';
 
@@ -18,7 +19,9 @@ export const metadata: Metadata = {
   title: 'Next Contacts',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const contacts = await getContacts();
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -30,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 New
               </Button>
             </div>
-            <ContactList />
+            <ContactList contacts={contacts} />
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
               <Link className="flex items-center gap-2 text-black no-underline" href="/">
                 <Image priority width={30} height={30} src={Logo} alt="" />
