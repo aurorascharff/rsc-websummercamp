@@ -16,7 +16,7 @@ type Props = {
 export default function ContactForm({ contact }: Props) {
   const updateContactById = updateContact.bind(null, contact.id);
 
-  const [, updateContactAction] = useActionState(updateContactById, {
+  const [state, updateContactAction] = useActionState(updateContactById, {
     errors: {} as ContactSchemaErrorType,
   });
 
@@ -41,9 +41,16 @@ export default function ContactForm({ contact }: Props) {
           />
         </div>
         <label htmlFor="github">Twitter</label>
-        <Input defaultValue={contact.twitter || undefined} name="twitter" placeholder="@jack" type="text" />
+        <Input
+          error={state.errors.fieldErrors?.twitter}
+          defaultValue={contact.twitter || undefined}
+          name="twitter"
+          placeholder="@jack"
+          type="text"
+        />
         <label htmlFor="avatar">Avatar URL</label>
         <Input
+          error={state.errors.fieldErrors?.avatar}
           defaultValue={contact.avatar || undefined}
           name="avatar"
           placeholder="https://sessionize.com/image/example.jpg"
