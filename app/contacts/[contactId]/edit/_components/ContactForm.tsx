@@ -17,6 +17,13 @@ export default function ContactForm({ contact }: Props) {
   const updateContactById = updateContact.bind(null, contact.id);
 
   const [state, updateContactAction] = useActionState(updateContactById, {
+    data: {
+      avatar: contact.avatar || '',
+      first: contact.first || '',
+      last: contact.last || '',
+      notes: contact.notes || '',
+      twitter: contact.twitter || '',
+    },
     errors: {} as ContactSchemaErrorType,
   });
 
@@ -26,7 +33,7 @@ export default function ContactForm({ contact }: Props) {
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <Input
-            defaultValue={contact.first || undefined}
+            defaultValue={state.data?.first || undefined}
             aria-label="First name"
             name="first"
             type="text"
@@ -34,7 +41,7 @@ export default function ContactForm({ contact }: Props) {
           />
           <Input
             aria-label="Last name"
-            defaultValue={contact.last || undefined}
+            defaultValue={state.data?.last || undefined}
             name="last"
             placeholder="Last"
             type="text"
@@ -43,7 +50,7 @@ export default function ContactForm({ contact }: Props) {
         <label htmlFor="github">Twitter</label>
         <Input
           error={state.errors.fieldErrors?.twitter}
-          defaultValue={contact.twitter || undefined}
+          defaultValue={state.data?.twitter || undefined}
           name="twitter"
           placeholder="@jack"
           type="text"
@@ -51,13 +58,13 @@ export default function ContactForm({ contact }: Props) {
         <label htmlFor="avatar">Avatar URL</label>
         <Input
           error={state.errors.fieldErrors?.avatar}
-          defaultValue={contact.avatar || undefined}
+          defaultValue={state.data?.avatar || undefined}
           name="avatar"
           placeholder="https://sessionize.com/image/example.jpg"
           type="text"
         />
         <label htmlFor="notes">Notes</label>
-        <TextArea className="grow" defaultValue={contact.notes || undefined} name="notes" rows={6} />
+        <TextArea className="grow" defaultValue={state.data?.notes || undefined} name="notes" rows={6} />
       </div>
       <div className="flex gap-2 self-end">
         <LinkButton theme="secondary" href={`/contacts/${contact.id}`}>
