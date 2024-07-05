@@ -4,6 +4,7 @@ import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import TextArea from '@/components/ui/TextArea';
 
+import { updateContact } from '@/lib/actions/updateContact';
 import { getContact } from '@/lib/services/getContact';
 
 type Props = {
@@ -12,9 +13,10 @@ type Props = {
 
 export default async function ContactForm({ contactId }: Props) {
   const contact = await getContact(contactId);
+  const updateContactById = updateContact.bind(null, contactId);
 
   return (
-    <form className="flex max-w-[40rem] flex-col gap-4 @container">
+    <form action={updateContactById} className="flex max-w-[40rem] flex-col gap-4 @container">
       <div className="grip-rows-5 grid grid-cols-1 gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
