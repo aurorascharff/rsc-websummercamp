@@ -1,12 +1,20 @@
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { SearchIcon, SpinnerIcon } from './ui/icons';
 
 export default function Search() {
   const searching = false;
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <form role="search">
       <input
+        onChange={e => {
+          router.push(`${pathname}?q=${e.target.value}`);
+        }}
         className="w-full pl-8 outline-offset-1"
         aria-label="Search contacts"
         name="q"
