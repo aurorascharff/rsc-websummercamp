@@ -4,7 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ContactList from '@/components/ContactList';
 import Search from '@/components/Search';
-import Button from '@/components/ui/Button';
+
+import SubmitButton from '@/components/ui/SubmitButton';
 import { createEmptyContact } from '@/lib/actions/createEmptyContact';
 import { getContacts } from '@/lib/services/getContacts';
 import Logo from '@/public/next-js.svg';
@@ -31,9 +32,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <div className="flex items-center gap-2 border-b border-gray px-8 py-4">
               <Search />
               <form action={createEmptyContact}>
-                <Button type="submit" theme="secondary">
+                <SubmitButton type="submit" theme="secondary">
                   New
-                </Button>
+                </SubmitButton>
               </form>
             </div>
             <ContactList contacts={contacts} />
